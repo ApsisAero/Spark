@@ -3,6 +3,7 @@
 #define CALIB_FACT -7050.0
 #define LCDSERIAL Serial2
 
+#define IGN 4
 #define DAT 2
 #define CLK 3
 
@@ -28,11 +29,9 @@ void writeSecondLCD(const char* input) {
   LCDSERIAL.write(input);
 }
 
-void setIgnite(bool on) {
-
-}
-
 void setup() {
+  pinMode(IGN,OUTPUT);
+  digitalWrite(IGN,LOW);
   Serial.begin(9600);
   LCDSERIAL.begin(9600);
   scale.set_scale(CALIB_FACT);
@@ -41,20 +40,22 @@ void setup() {
   writeSecondLCD("connect + zero.");
   
   Serial.flush();
-  
+  if (!Serial.available());
   scale.tare();
 }
 
 void loop() {
   if (Serial.available() > 0) {
     char incomingByte = Serial.read();
-    if (incomingByte == 'i') setIgnite(true);
-    else if (incomingByte == 'o') setIgnite(false);
+    if (incomingByte == 'i') digitalWrite(IGN,HIGH);
+    else if (incomingByte == 'o') digitalWrite(IGN,LOW);
   }
   
   Serial.print(millis());
   Serial.print(",");
   Serial.print(scale.get_units());
   Serial.print("\n");
+  
+  writeFirstLCD("Running");
 }
 
