@@ -29,6 +29,17 @@ void writeSecondLCD(const char* input) {
   LCDSERIAL.write(input);
 }
 
+float getLoad(int iters) {
+  if (iters == 0) {
+    return random(0,100);
+  } else {
+    int num = 0;
+    for (int i=0; i<iters; i++)
+      num += scale.get_units();
+    return num /= iters;
+  }
+}
+
 void setup() {
   pinMode(IGN,OUTPUT);
   digitalWrite(IGN,LOW);
@@ -53,7 +64,7 @@ void loop() {
   
   Serial.print(millis());
   Serial.print(",");
-  Serial.print(scale.get_units());
+  Serial.print(getLoad(0));
   Serial.print("\n");
   
   writeFirstLCD("Running");
