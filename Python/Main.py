@@ -9,9 +9,11 @@ teensy = serial.Serial('/dev/cu.usbmodem1028921',9600)
 def liveVisual():
 	plt.ion()
 	ydata = [0] * 100
-	ax1=plt.axes()
 	line, = plt.plot(ydata)
 	plt.ylim([0,10])
+
+	plt.xlabel('Time (s)')
+	plt.ylabel('Thrust (N)')
 
 	while True:
 		readVal = float(teensy.readline())
