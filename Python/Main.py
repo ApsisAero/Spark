@@ -1,5 +1,4 @@
-import numpy as np
-import time, serial, thread
+import time, serial, thread, sys, datetime
 
 def input_thread(L):
     raw_input()
@@ -17,17 +16,30 @@ def main():
 
 	teensy.write("i".encode('ascii'))
 
+	firstReadVal = teensy.readline().split(",")
+	subMils = float(readVal[0])
+
 	L = []
 	thread.start_new_thread(input_thread, (L,))
 	while True:
 
 		readVal = teensy.readline().split(",")
 
-		storedTimes.append(float(readVal[0]))
+		storedTimes.append(float(readVal[0])-subMils)
 		storedVals.append(float(readVal[1]))
 
 		if L: break
 
 	teensy.write("o".encode('ascii'));
+	wFile = open(sys.argv[0],"w")
+
+	wFile.write("Generated " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+ + "\n")
+
+	for t,v in zip(storedTimes,storedVals):
+		wFile.write(str(storedTimes)+","+str(storedVals)+"\n")
+
+
+	wFile.close()
 
 main()
