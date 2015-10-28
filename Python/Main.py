@@ -1,5 +1,5 @@
 import numpy as np
-import time, serial
+import time, serial, thread
 
 def input_thread(L):
     raw_input()
@@ -10,9 +10,9 @@ def main():
 	storedTimes = []
 	teensy = serial.Serial('/dev/cu.usbmodem1028921',9600)
 
-	passcode = input('Type passcode to launch: ')
+	passcode = raw_input('Type passcode to launch: ')
 
-	if passcode != "spark":
+	if passcode != 'spark':
 		return
 
 	teensy.write("i".encode('ascii'))
@@ -21,7 +21,7 @@ def main():
 	thread.start_new_thread(input_thread, (L,))
 	while True:
 
-		readVal = teensy.readline().split()
+		readVal = teensy.readline().split(",")
 
 		storedTimes.append(float(readVal[0]))
 		storedVals.append(float(readVal[1]))
