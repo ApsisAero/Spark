@@ -62,8 +62,9 @@ void loop() {
     else if (incomingByte == 'o') digitalWrite(IGN,LOW);
   }
   
+  Serial.print(millis());
+  Serial.print(",");
   Serial.println(getLoad(0));
   
   writeFirstLCD("Running");
 }
-
