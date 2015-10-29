@@ -14,7 +14,7 @@ def dieThread():
 		time = str(long(readVal[0])-subMils)
 		val = str(float(readVal[1])-subThrust)
 		wFile.write(time+","+val+"\n")
-		teensy.write("o".encode('ascii'));
+	teensy.write("o".encode('ascii'));
 	wFile.close()
 
 def main():
@@ -29,13 +29,19 @@ def main():
 		msgbox("Could not find Spark board, please verify connection.",GUI_TITLE)
 		return
 
+	teensy.write("c".encode('ascii'))
+
 	if not msgbox("Successfully connected to the Spark board.\nClick OK to zero the load cell.",GUI_TITLE):
 		return
+
+	teensy.write("y".encode('ascii'))
 
 	subThrust=0.0;
 	for i in range(ZERO_PRECISION):
 		subThrust += float(teensy.readline().split(",")[1])
 	subThrust /= ZERO_PRECISION
+
+	teensy.write("z".encode('ascii'))
 
 	fileName = enterbox("Input the output results filename.",GUI_TITLE)
 	if fileName == None:
