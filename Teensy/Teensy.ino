@@ -36,7 +36,6 @@ void serCommand(){
   LCD.write(0xFE);
 }
 
-
 float getLoad(int iters) {
   if (iters == 0) {
     return random(0,100);
@@ -103,7 +102,9 @@ void loop() {
     }
   }
   
+  
   Serial.print(millis());
   Serial.print(",");
   Serial.println(getLoad(0));
+  delay(10);
 }
