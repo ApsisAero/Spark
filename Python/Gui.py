@@ -1,5 +1,5 @@
 from easygui import *
-import serial, threading, datetime
+import serial, threading, datetime, time
 
 ZERO_PRECISION = 100
 SERIAL_BAUD = 9600
@@ -48,9 +48,13 @@ def main():
 		return;
 	fileName += ".csv"
 
+	num = integerbox("Enter the amount of seconds to delay")
+
 	while not enterbox("Enter the passcode to launch.",GUI_TITLE) == "spark":
 		msgbox("Incorrect passcode.  Exiting.",GUI_TITLE)
 		return
+
+	time.sleep(num)
 
 	firstReadVal = teensy.readline().split(",")
 	subMils = long(firstReadVal[0])
