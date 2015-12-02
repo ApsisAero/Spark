@@ -3,7 +3,7 @@ import serial, threading, datetime, time
 
 ZERO_PRECISION = 100
 SERIAL_BAUD = 9600
-SERIAL_PORT = "/dev/cu.usbmodem1028921"
+SERIAL_PORT = "/dev/cu.usbmodem1263031"
 GUI_TITLE = "Spark Control GUI"
 
 die = False

@@ -1,7 +1,7 @@
 #include "HX711.h"
 #include <SoftwareSerial.h>
 
-#define CALIB_FACT -7050.0
+#define CALIB_FACT 432
 #define txPin 0
 
 #define IGN 4
@@ -36,7 +36,7 @@ void serCommand(){
   LCD.write(0xFE);
 }
 
-float getLoad(int iters) {
+int getLoad(int iters) {
   if (iters == 0) {
     return random(0,100);
   } else {
@@ -58,10 +58,9 @@ void setup() {
   delay(1500);
   clearLCD();
   lcdPosition(0,0);
-  LCD.print("Place engine and");
+  LCD.print("Remove engine and");
   lcdPosition(1,0);
   LCD.print("connect via USB.");
-  scale.tare();
 }
 
 void loop() {
@@ -87,6 +86,7 @@ void loop() {
       LCD.print("Connected to");
       lcdPosition(1,0);
       LCD.print("control.");
+      scale.tare();
     } else if (incomingByte == 'y') {
       clearLCD();
       lcdPosition(0,0);
@@ -101,10 +101,15 @@ void loop() {
       LCD.print("Ready to launch.");
     }
   }
-  
+
+  int load = getLoad(1);
+  const int n = snprintf(NULL, 0, "%d", load);
+  char buf[n+1];
+  int c = snprintf(buf, n+1, "%d", load);
+
   
   Serial.print(millis());
   Serial.print(",");
-  Serial.println(getLoad(0));
+  Serial.println(load);
   delay(10);
 }
