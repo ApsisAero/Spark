@@ -4601,6 +4601,7 @@ We've spent an enormous amount of time creating and checking these footprints an
 <part name="SUPPLY5" library="SparkFun-Aesthetics" deviceset="VIN" device=""/>
 <part name="SUPPLY6" library="SparkFun-Aesthetics" deviceset="VIN" device=""/>
 <part name="SUPPLY8" library="SparkFun-Aesthetics" deviceset="VIN" device=""/>
+<part name="GND3" library="SparkFun-Aesthetics" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4717,6 +4718,7 @@ Display</text>
 <instance part="SUPPLY5" gate="G$1" x="121.92" y="66.04" rot="R270"/>
 <instance part="SUPPLY6" gate="G$1" x="35.56" y="33.02" rot="R90"/>
 <instance part="SUPPLY8" gate="G$1" x="99.06" y="124.46"/>
+<instance part="GND3" gate="1" x="101.6" y="101.6"/>
 </instances>
 <busses>
 </busses>
@@ -4810,6 +4812,20 @@ Display</text>
 <pinref part="GND13" gate="1" pin="GND"/>
 <wire x1="20.32" y1="180.34" x2="20.32" y2="182.88" width="0.1524" layer="91"/>
 <pinref part="C4" gate="G$1" pin="2"/>
+</segment>
+<segment>
+<pinref part="J1" gate="G$1" pin="GND@2"/>
+<pinref part="GND3" gate="1" pin="GND"/>
+<wire x1="106.68" y1="111.76" x2="101.6" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="111.76" x2="101.6" y2="109.22" width="0.1524" layer="91"/>
+<pinref part="J1" gate="G$1" pin="GND@1"/>
+<wire x1="101.6" y1="109.22" x2="101.6" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="106.68" x2="101.6" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="109.22" x2="101.6" y2="109.22" width="0.1524" layer="91"/>
+<junction x="101.6" y="109.22"/>
+<pinref part="J1" gate="G$1" pin="GND@0"/>
+<wire x1="101.6" y1="106.68" x2="106.68" y2="106.68" width="0.1524" layer="91"/>
+<junction x="101.6" y="106.68"/>
 </segment>
 </net>
 <net name="VCC" class="0">
